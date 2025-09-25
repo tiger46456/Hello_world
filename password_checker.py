@@ -1,6 +1,6 @@
 import getpass
 import sys
-from utils import calculate_strength_score, provide_feedback
+from utils import calculate_strength_score, provide_feedback, check_pwned_password
 from colorama import init, Fore
 
 init(autoreset=True)
@@ -30,7 +30,8 @@ def main():
                 print(Fore.RED + "Password cannot be empty.")
                 continue
 
-            score = calculate_strength_score(password)
+            pwned_info = check_pwned_password(password)
+            score = calculate_strength_score(password, pwned_info)
             feedback = provide_feedback(password)
 
             color = get_strength_color(score)
@@ -38,10 +39,13 @@ def main():
             print("\n--- Password Analysis ---")
             print(f"Strength Score: {color}{score}/10")
 
-            print("\n--- Feedback & Suggestions ---")
+            print("\n--- Strength Feedback ---")
             for line in feedback:
                 if line:
                     print(f"- {line}")
+
+            print("\n--- Breach Check ---")
+            print(f"- {pwned_info}")
             print("---------------------------\n")
 
         except KeyboardInterrupt:

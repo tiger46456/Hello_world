@@ -1,4 +1,6 @@
 import re
+import requests
+import hashlib
 
 def check_length(password):
     length = len(password)
@@ -37,7 +39,7 @@ def check_common_patterns(password):
         return "Password is a very common and weak password. Please choose a different one."
     return None
 
-def calculate_strength_score(password):
+def calculate_strength_score(password, pwned_info=None):
     score = 0
 
     # Length score
@@ -62,7 +64,30 @@ def calculate_strength_score(password):
     if check_common_patterns(password):
         score = 1
 
+    # Penalty for being pwned
+    if pwned_info and "found" in pwned_info:
+        score = max(1, score - 4)
+
     return min(10, score)
+
+def check_pwned_password(password):
+    """Checks if a password has been pwned using the Have I Been Pwned API."""
+    try:
+        sha1_password = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+        prefix, suffix = sha1_password[:5], sha1_password[5:]
+
+        response = requests.get(f"https://api.pwnedpasswords.com/range/{prefix}")
+        response.raise_for_status()
+
+        hashes = (line.split(':') for line in response.text.splitlines())
+        for h, count in hashes:
+            if h == suffix:
+                return f"This password has been found {count} times in data breaches. It is compromised and should not be used."
+
+        return "This password was not found in any known data breaches. Good job!"
+
+    except requests.RequestException:
+        return "Could not check for breaches due to a network error."
 
 def provide_feedback(password):
     length_feedback = check_length(password)

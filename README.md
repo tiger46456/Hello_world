@@ -4,12 +4,14 @@ A command-line interface (CLI) application built in Python to help users evaluat
 
 ## Features
 
-- **Password Strength Analysis**: Checks for length, character variety (uppercase, lowercase, digits, special characters), and common weak patterns.
+- **Modern GUI**: A user-friendly graphical interface built with Tkinter.
+- **Real-Time Breach Check**: Integrates with the 'Have I Been Pwned' API to check if a password has been exposed in a data breach.
+- **Password Strength Analysis**: Checks for length, character variety, and common weak patterns.
 - **Detailed Feedback**: Provides actionable suggestions to improve password security.
-- **Strength Score**: Rates passwords on a scale of 1 to 10.
-- **Color-Coded Output**: Displays strength levels in different colors for quick assessment (Red for weak, Yellow for medium, Green for strong).
-- **Secure Input**: Hides password typing for privacy.
-- **Interactive CLI**: Easy-to-use interface with clear instructions.
+- **Strength Score**: Rates passwords on a scale of 1 to 10, penalizing compromised passwords.
+- **Color-Coded Output**: Displays strength levels in different colors for quick assessment.
+- **Secure Input**: Hides password typing in the CLI for privacy.
+- **Interactive CLI and GUI**: Choose between a command-line or graphical experience.
 
 ## Installation
 
@@ -32,7 +34,21 @@ A command-line interface (CLI) application built in Python to help users evaluat
 
 ## Usage
 
-Run the application from your terminal:
+This project provides both a command-line (CLI) and a graphical user interface (GUI) application.
+
+### GUI Application
+
+To run the GUI application, execute the following command:
+
+```bash
+python3 main_gui.py
+```
+
+This will open a window where you can type your password and see the analysis in real-time.
+
+### CLI Application
+
+To run the original CLI application from your terminal:
 
 ```bash
 python3 password_checker.py
