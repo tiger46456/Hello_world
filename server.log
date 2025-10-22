@@ -1,0 +1,3 @@
+127.0.0.1 - - [22/Oct/2025 23:52:17] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [22/Oct/2025 23:52:23] "GET /worksheet-1.html HTTP/1.1" 200 -
+127.0.0.1 - - [22/Oct/2025 23:52:28] "GET /worksheet-style.css HTTP/1.1" 200 -
