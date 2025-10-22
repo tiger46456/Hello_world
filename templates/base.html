@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Todo List{% endblock %} · Flask Todo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="container">
+          <h1 class="brand">Flask Todo</h1>
+          <nav class="actions">
+            <a href="{{ url_for('index') }}" class="link">Home</a>
+            <a href="https://flask.palletsprojects.com/" class="link" target="_blank" rel="noopener">Flask Docs</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="flash flash-{{ category }}">
+                  <span>{{ message }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer class="app-footer">
+        <div class="container">
+          <p>Built with Flask · Stay productive!</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

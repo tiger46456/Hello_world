@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ todo.title }}{% endblock %}
+
+{% block content %}
+<section class="todo-form-wrapper">
+  <div class="todo-form-card">
+    <header class="todo-list-header">
+      <div>
+        <h2>Edit todo</h2>
+        <p class="subtitle">Update the details and status of your task.</p>
+      </div>
+      <a href="{{ url_for('index') }}" class="button button-secondary">Back to list</a>
+    </header>
+
+    <form method="post" action="{{ url_for('update_todo', todo_id=todo.id) }}" class="todo-form">
+      <div class="field-group">
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text" value="{{ todo.title }}" required>
+      </div>
+      <div class="field-group">
+        <label for="description">Description <span class="optional">Optional</span></label>
+        <textarea id="description" name="description" rows="4">{{ todo.description }}</textarea>
+      </div>
+      <div class="field-group checkbox-field">
+        <input id="completed" name="completed" type="checkbox" {% if todo.completed %}checked{% endif %}>
+        <label for="completed">Mark as completed</label>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="button button-primary">Save changes</button>
+        <a href="{{ url_for('index') }}" class="button button-text">Cancel</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}
